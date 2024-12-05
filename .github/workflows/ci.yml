@@ -11,20 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Paso 1: Configurar el repositorio
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Paso 2: Configurar Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '16'
 
-    # Paso 3: Instalar dependencias
     - name: Install dependencies
       run: npm install
 
-    # Paso 4: Ejecutar las pruebas unitarias
+    - name: Set permissions for jest
+      run: chmod +x node_modules/.bin/jest
+
+    - name: List jest binary location
+      run: ls -l node_modules/.bin/jest
+
     - name: Run tests
-      run: npm test
+      run: ./node_modules/.bin/jest
